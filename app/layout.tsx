@@ -12,10 +12,10 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-export const metadata: Metadata = {
-  title: "Chetan Mulge | Video Editor",
-  description: "Chetan Mulge – Video Editor & Motion Designer. Portfolio showcasing cinematic edits, reels, and creative storytelling.",
-};
+  export const metadata: Metadata = {
+    title: "Chetan Mulge | Video Editor",
+    description: "Chetan Mulge – Video Editor & Motion Designer. Portfolio showcasing cinematic edits, reels, and creative storytelling.",
+  };
 
 export default function RootLayout({
   children,
