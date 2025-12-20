@@ -3,71 +3,105 @@
 import { useEffect, useState } from "react";
 
 export default function Hero() {
-  const fullName = "Chetan";
-  const [text, setText] = useState("");
-  const [showCursor, setShowCursor] = useState(true);
-  const [showContent, setShowContent] = useState(false);
+  const [visible, setVisible] = useState(false);
+  const [scrollY, setScrollY] = useState(0);
 
   useEffect(() => {
-    let index = 0;
+    const t = setTimeout(() => setVisible(true), 300);
+    return () => clearTimeout(t);
+  }, []);
 
-    const typingInterval = setInterval(() => {
-      if (index < fullName.length) {
-        setText((prev) => prev + fullName[index]);
-        index++;
-      } else {
-        clearInterval(typingInterval);
-        setTimeout(() => {
-          setShowCursor(false); // cursor fades
-          setShowContent(true); // show rest of content
-        }, 400);
-      }
-    }, 150);
-
-    return () => clearInterval(typingInterval);
+  useEffect(() => {
+    const handleScroll = () => setScrollY(window.scrollY);
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   return (
-    <section className="min-h-screen flex flex-col items-center justify-center text-center px-6">
-      {/* Name Animation */}
-      <h1 className="text-5xl md:text-7xl font-bold">
-        Hi, I’m{" "}
-        <span className="text-purple-400">
-          {text}
-          {showCursor && <span className="animate-pulse">|</span>}
-        </span>
-      </h1>
+    <section className="relative min-h-screen overflow-hidden flex items-center justify-center px-6 grain">
+      {/* 🎥 Background Video */}
+      <video
+        autoPlay
+        loop
+        muted
+        playsInline
+        className="absolute inset-0 w-full h-full object-cover opacity-40"
+      >
+        <source src="/hero-bg.mp4" type="video/mp4" />
+      </video>
 
-      {/* Rest of content */}
-      {showContent && (
-        <div className="mt-6 animate-fadeIn">
-          <p className="text-lg md:text-xl text-gray-300">
-            Video Editor & Motion Designer
-          </p>
+      {/* 🌑 Cinematic Overlay */}
+      <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-black/70 to-black/90" />
 
-          <p className="mt-4 max-w-2xl text-gray-400">
-            I create cinematic edits, reels, and visual stories that grab
-            attention.
-          </p>
+      {/* 🌟 Content */}
+      <div
+        className={`relative z-10 max-w-4xl text-center transition-all duration-700 ease-out
+        ${visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}
+        style={{ transform: `translateY(${scrollY * 0.15}px)` }}
+      >
+        {/* 👋 Identity */}
+        <h1 className="text-5xl md:text-7xl font-bold text-purple-400">
+          Hi, I’m Chetan
+        </h1>
 
-          <div className="mt-8 flex gap-4 justify-center">
-            <a
-              href="https://instagram.com/YOUR_INSTAGRAM_USERNAME"
-              target="_blank"
-              className="bg-purple-600 hover:bg-purple-700 px-6 py-3 rounded-lg font-semibold transition"
-            >
-              View Instagram Reels
-            </a>
+        {/* 🎯 Value Proposition */}
+        <p className="mt-5 text-xl md:text-2xl text-white">
+          Cinematic Reels & Scroll-Stopping Edits
+        </p>
+        <p className="mt-1 text-gray-300">for Creators & Brands</p>
 
-            <a
-              href="#contact"
-              className="border border-purple-400 px-6 py-3 rounded-lg transition"
-            >
-              Contact Me
-            </a>
-          </div>
+        {/* 🧩 Service Chips */}
+        <div className="mt-7 flex flex-wrap justify-center gap-3">
+          {["Instagram Reels", "YouTube Edits", "Motion Graphics"].map(
+            (item, i) => (
+              <span
+                key={item}
+                className={`px-4 py-2 rounded-full bg-white/10 text-sm text-gray-200
+                transition-all duration-500
+                ${visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-3"}`}
+                style={{ transitionDelay: `${300 + i * 120}ms` }}
+              >
+                {item}
+              </span>
+            )
+          )}
         </div>
-      )}
+
+        {/* 🔘 CTA */}
+        <div className="mt-12 flex justify-center gap-6 items-center">
+          <a
+            href="#showwork"
+            className="interactive bg-purple-600 px-8 py-3 rounded-lg text-white"
+          >
+            View Show Work
+          </a>
+
+          <a
+            href="#contact"
+            className="text-gray-300 hover:text-white transition"
+          >
+            Contact me →
+          </a>
+        </div>
+
+        {/* 📷 Instagram (subtle, premium) */}
+        <div className="mt-8 relative group inline-block">
+          <a
+            href="https://www.instagram.com/_chetan.mulge_/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-purple-400 opacity-70 hover:opacity-100 transition"
+          >
+            Instagram
+          </a>
+          <span
+            className="absolute left-1/2 -translate-x-1/2 top-full mt-2
+            text-xs text-gray-400 opacity-0 group-hover:opacity-100 transition"
+          >
+            view my edits →
+          </span>
+        </div>
+      </div>
     </section>
   );
 }

@@ -1,8 +1,12 @@
 import Hero from "./sections/hero";
+import ShowWork from "./sections/showwork";
+import Skills from "./sections/skills";
 import Services from "./sections/services";
 import Projects from "./sections/projects";
 import About from "./sections/about";
 import Contact from "./sections/contact";
+
+
 
 export default function Home() {
   return (
@@ -13,6 +17,8 @@ export default function Home() {
       {/* Content */}
       <div className="relative z-10">
         <Hero />
+        <ShowWork/>
+        <Skills/>
         <Services />
         <Projects />
         <About />

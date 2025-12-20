@@ -4,7 +4,7 @@ export default function Contact() {
       <h2 className="text-4xl font-bold mb-6">Let’s Work Together</h2>
 
       <p className="text-gray-400 mb-6">
-        Email: yourname@email.com
+        Email: mulge10chetan@email.com
       </p>
 
       <div className="flex justify-center gap-6 text-purple-500">
