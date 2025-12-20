@@ -18,7 +18,7 @@ export default function About() {
         whileInView={{ opacity: 1, y: 0 }}
       >
         I’m Chetan, a video editor focused on cinematic storytelling,
-        Instagram reels, and scroll-stopping visuals.
+        Instagram reels, and scroll-stopping visuals with some interest in film making and creating scenes like films. 
       </motion.p>
     </section>
   );
