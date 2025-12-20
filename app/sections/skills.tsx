@@ -28,7 +28,16 @@ function StarRating({ level }: { level: number }) {
 
 export default function Skills() {
   const skills: SkillProps[] = [
+   
+   {
+      name: "CapCut",
+      subtitle:     "(Mobile and PC)",
+      logo: "/logos/capcut.png",
+      level: 4.5,
+    },
+
     {
+    
       name: "Adobe Premiere Pro",
       logo: "/logos/premiere.png",
       level: 2.5,
@@ -46,13 +55,6 @@ export default function Skills() {
       logo: "/logos/photoshop.png",
       level: 1.5,
       learning: true,
-    },
-
-    {
-      name: "CapCut",
-      subtitle:     "(Mobile and PC)",
-      logo: "/logos/capcut.png",
-      level: 4.5,
     },
 
     {

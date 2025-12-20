@@ -119,3 +119,37 @@ body {
   transform: translateY(-3px) scale(1.03);
   box-shadow: 0 10px 30px rgba(168, 85, 247, 0.35);
 }
+
+html {
+  scroll-behavior: smooth;
+}
+
+.grain::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: url("/grain.png");
+  opacity: 0.08;
+  mix-blend-mode: overlay;
+  pointer-events: none;
+}
+
+.interactive {
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.interactive:hover {
+  transform: scale(1.08);
+  box-shadow: 0 0 25px rgba(168, 85, 247, 0.5);
+}
+
+/* 🎞️ Cinematic Grain Overlay */
+.grain::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+  z-index: 1;
+}
+

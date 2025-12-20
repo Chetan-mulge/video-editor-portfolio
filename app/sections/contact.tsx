@@ -8,10 +8,40 @@ export default function Contact() {
       </p>
 
       <div className="flex justify-center gap-6 text-purple-500">
-        <a href="#">Instagram</a>
-        <a href="#">YouTube</a>
-        <a href="#">LinkedIn</a>
+        <a
+           href="https://www.instagram.com/_chetan.mulge_/"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-gray-400 hover:text-purple-400 transition"
+          >
+          Instagram
+        </a>
+        
+        <a
+          href="https://www.linkedin.com/in/chetan-m-87a4562a4"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-gray-400 hover:text-purple-400 transition"
+          >
+          Linkedin
+          </a>
+
+          <div className="relative group cursor-not-allowed">
+           <span className="text-gray-400 opacity-60">
+           YouTube
+         </span>
+
+          <span
+           className="absolute left-1/2 -translate-x-1/2 top-full mt-2
+           text-xs text-gray-500 opacity-0 group-hover:opacity-100 transition
+          whitespace-nowrap"
+          >
+           not on YouTube yet 🎬
+           </span>
+          </div>
+  
       </div>
     </section>
   );
 }
+

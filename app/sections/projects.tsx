@@ -1,12 +1,12 @@
 const projects = [
   {
     title: "Travel Cinematic Reel",
-    tools: "Premiere Pro + After Effects",
+    tools: "Premiere Pro + Capcut",
     link: "VIDEO_LINK",
   },
   {
     title: "Instagram Reel Edit",
-    tools: "Premiere Pro",
+    tools: "Premiere Pro + capcut`",
     link: "VIDEO_LINK",
   },
   {
