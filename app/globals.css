@@ -1,10 +1,5 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
@@ -23,8 +18,10 @@ body {
   background: var(--background);
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
+  overflow-x: hidden; /* Prevents accidental horizontal scrolling */
 }
 
+/* --- ANIMATIONS --- */
 @keyframes fadeIn {
   from {
     opacity: 0;
@@ -49,107 +46,36 @@ body {
   animation: blink 1s steps(1) infinite;
 }
 
-/* GLOBAL INTERACTIVE HOVER EFFECT */
-.interactive {
-  transition: all 0.25s ease;
-}
-
-.interactive:hover {
-  box-shadow: 0 0 25px rgba(168, 85, 247, 0.45);
-  transform: translateY(-2px);
-}
-/* Section smooth transition */
-.section-fade {
-  position: relative;
-}
-
-.section-fade::after {
-  content: "";
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  height: 120px;
-  background: linear-gradient(
-    to bottom,
-    rgba(15, 12, 41, 0) 0%,
-    rgba(15, 12, 41, 0.6) 40%,
-    rgba(15, 12, 41, 1) 100%
-  );
-  pointer-events: none;
-}
-
-/* Smooth section transition */
-.section-blend {
-  position: relative;
-}
-
-.section-blend::after {
-  content: "";
-  position: absolute;
-  bottom: -1px;
-  left: 0;
-  width: 100%;
-  height: 140px;
-  background: linear-gradient(
-    to bottom,
-    rgba(15,12,41,0) 0%,
-    rgba(15,12,41,0.6) 50%,
-    rgba(15,12,41,1) 100%
-  );
-  pointer-events: none;
-}
-
-/* Cinematic grain overlay */
-.grain::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background-image: url("/grain.png");
-  opacity: 0.06;
-  mix-blend-mode: overlay;
-  pointer-events: none;
-}
-
+/* --- INTERACTIVE HOVER EFFECTS (Updated to GOLD) --- */
 .interactive {
   transition: transform 0.25s ease, box-shadow 0.25s ease;
 }
 
 .interactive:hover {
   transform: translateY(-3px) scale(1.03);
-  box-shadow: 0 10px 30px rgba(168, 85, 247, 0.35);
+  /* Gold Glow instead of Purple */
+  box-shadow: 0 10px 30px rgba(212, 175, 55, 0.35); 
 }
 
+/* --- CINEMATIC GRAIN (No Image File Needed) --- */
+.grain::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  /* SVG Noise - Works without external files */
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+  z-index: 1;
+  mix-blend-mode: overlay;
+}
+
+/* --- SYSTEM CURSOR FIX --- */
+/* Forces the arrow to always be visible as you requested */
+html, body, a, button {
+  cursor: auto !important;
+}
+
+/* Smooth Scrolling for anchor links */
 html {
   scroll-behavior: smooth;
 }
-
-.grain::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background-image: url("/grain.png");
-  opacity: 0.08;
-  mix-blend-mode: overlay;
-  pointer-events: none;
-}
-
-.interactive {
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
-}
-
-.interactive:hover {
-  transform: scale(1.08);
-  box-shadow: 0 0 25px rgba(168, 85, 247, 0.5);
-}
-
-/* 🎞️ Cinematic Grain Overlay */
-.grain::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
-  z-index: 1;
-}
-

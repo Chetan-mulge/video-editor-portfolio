@@ -1,105 +1,64 @@
+"use client";
+import FadeIn from "../components/FadeIn";
 import Image from "next/image";
 
 type SkillProps = {
   name: string;
-  subtitle?: string; // 👈 ADD THIS
-  logo: string;
-  level: number;
-  learning?: boolean;
+  subtitle: string;
+  file: string; // Ensure this matches your filename in public/logos (e.g., "premiere.png")
 };
 
-
-function StarRating({ level }: { level: number }) {
-  return (
-    <div className="flex justify-center gap-1 mt-2">
-      {[1, 2, 3, 4, 5].map((star) => (
-        <span
-          key={star}
-          className={`text-lg ${
-            star <= level ? "text-purple-400" : "text-gray-600"
-          }`}
-        >
-          ★
-        </span>
-      ))}
-    </div>
-  );
-}
+const tools: SkillProps[] = [
+  { name: "Premiere Pro",  file: "premiere.png" },
+  { name: "After Effects",  file: "aftereffects.png" },
+  { name: "DaVinci Resolve",  file: "davinci.png" },
+  { name: "CapCut",  file: "capcut.png" },
+  { name: "Photoshop",  file: "photoshop.png" },
+];
 
 export default function Skills() {
-  const skills: SkillProps[] = [
-   
-   {
-      name: "CapCut",
-      subtitle:     "(Mobile and PC)",
-      logo: "/logos/capcut.png",
-      level: 4.5,
-    },
-
-    {
-    
-      name: "Adobe Premiere Pro",
-      logo: "/logos/premiere.png",
-      level: 2.5,
-      learning: true,
-    },
-    {
-      name: "After Effects",
-      logo: "/logos/aftereffects.png",
-      level: 1,
-      learning: true,
-    },
-    
-    {
-      name: "Photoshop",
-      logo: "/logos/photoshop.png",
-      level: 1.5,
-      learning: true,
-    },
-
-    {
-      name: "DaVinci Resolve",
-      logo: "/logos/davinci.png",
-      level: 1,
-      learning: true,
-    }
-  ];
-
   return (
-    <section className="py-24 px-6 max-w-5xl mx-auto">
-      <h2 className="text-3xl md:text-4xl font-bold text-center mb-12">
-        Tools & Software
-      </h2>
+    <section className="py-24 px-6 relative z-10">
+      <div className="max-w-6xl mx-auto">
+        
+        <FadeIn>
+          <h2 className="text-4xl md:text-5xl font-serif text-center mb-16 text-white">
+            My <span className="text-[#D4AF37]">Tools</span>
+          </h2>
+        </FadeIn>
 
-      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-8">
-        {skills.map((skill) => (
-          <div
-            key={skill.name}
-            className="interactive bg-white/5 rounded-xl p-6 flex flex-col items-center text-center"
-          >
-            {/* LOGO */}
-            <Image
-              src={skill.logo}
-              alt={skill.name}
-              width={48}
-              height={48}
-            />
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6">
+          {tools.map((tool, index) => (
+            <FadeIn key={index} delay={index * 0.1}>
+              {/* Premium Glass Card */}
+              <div className="group relative p-6 h-full rounded-2xl bg-white/5 border border-white/10 backdrop-blur-md flex flex-col items-center text-center transition-all duration-300 hover:bg-white/10 hover:border-[#D4AF37]/50 hover:scale-105 hover:shadow-[0_0_20px_rgba(212,175,55,0.15)]">
+                
+                {/* Logo */}
+                <div className="w-16 h-16 mb-4 relative flex items-center justify-center group-h  over:grayscale-0 transition-all duration-300">
+                   {/* This looks for files in /public/logos/ */}
+                   <img 
+                     src={`/logos/${tool.file}`} 
+                     alt={`${tool.name} logo`}
+                     className="w-full h-full object-contain drop-shadow-lg"
+                     onError={(e) => { e.currentTarget.style.display = 'none'; }}
+                   />
+                </div>
 
-            {/* NAME */}
-            <p className="mt-4 font-medium">{skill.name}</p>
-            {skill.subtitle && (
-                <p className="text-sm text-gray-400">{skill.subtitle}</p>
-            )}
+                {/* Name */}
+                <h3 className="text-lg font-bold text-white group-hover:text-[#D4AF37] transition-colors">
+                  {tool.name}
+                </h3>
+                
+                {/* Subtitle */}
+                <p className="text-xs text-gray-400 mt-1">
+                  {tool.subtitle}
+                </p>
 
-            {/* LEARNING TAG */}
-            {skill.learning && (
-              <p className="text-sm text-gray-400">(Learning)</p>
-            )}
+              </div>
+            </FadeIn>
+          ))}
+        </div>
 
-            {/* STARS */}
-            <StarRating level={skill.level} />
-          </div>
-        ))}
       </div>
     </section>
   );
