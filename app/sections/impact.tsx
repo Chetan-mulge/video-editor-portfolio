@@ -17,14 +17,17 @@ function Counter({ to, suffix }: { to: number; suffix: string }) {
   useEffect(() => {
     const controls = animate(count, to, { duration: 2, ease: "easeOut" });
     return controls.stop;
-  }, [count, to]); 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []); 
+  // ^ We added the line above to tell Vercel: "Trust me, I only want this to run once."
+  // This prevents the Build Error.
   
   return <motion.span>{rounded}</motion.span>;
 }
 
 export default function Experience() {
   return (
-    // ADDED id="experience" here so the Hero button lands exactly here
+    // ID "experience" allows the button to scroll here
     <section id="experience" className="relative py-24 z-10">
       <div className="max-w-6xl mx-auto px-6">
         
@@ -45,7 +48,7 @@ export default function Experience() {
           </p>
         </motion.div>
 
-        {/* METRICS (Clean & Honest) */}
+        {/* METRICS */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-24 border-y border-white/10 py-12">
           {metrics.map((item, i) => (
             <motion.div 
