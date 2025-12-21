@@ -1,6 +1,6 @@
 "use client";
-import { motion, useMotionValue, useTransform, animate } from "framer-motion";
-import { useEffect } from "react";
+import { motion, useMotionValue, useTransform, animate, useInView } from "framer-motion";
+import { useEffect, useRef } from "react";
 
 // 1. YOUR REAL STATS
 const metrics = [
@@ -9,25 +9,26 @@ const metrics = [
   { value: 2, suffix: " Years", label: "Content Experience" },
 ];
 
-// 2. COUNTER ANIMATION HELPER
+// 2. SMART COUNTER (Starts only when seen)
 function Counter({ to, suffix }: { to: number; suffix: string }) {
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: true, margin: "-100px" }); // Triggers when 100px inside screen
+  
   const count = useMotionValue(0);
   const rounded = useTransform(count, (latest) => Math.round(latest) + suffix);
   
   useEffect(() => {
-    const controls = animate(count, to, { duration: 2, ease: "easeOut" });
-    return controls.stop;
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []); 
-  // ^ We added the line above to tell Vercel: "Trust me, I only want this to run once."
-  // This prevents the Build Error.
+    if (isInView) {
+      const controls = animate(count, to, { duration: 2.5, ease: "easeOut" });
+      return controls.stop;
+    }
+  }, [isInView, to, count]); 
   
-  return <motion.span>{rounded}</motion.span>;
+  return <motion.span ref={ref}>{rounded}</motion.span>;
 }
 
 export default function Experience() {
   return (
-    // ID "experience" allows the button to scroll here
     <section id="experience" className="relative py-24 z-10">
       <div className="max-w-6xl mx-auto px-6">
         
@@ -60,6 +61,7 @@ export default function Experience() {
               className="text-center group"
             >
               <h3 className="text-5xl md:text-6xl font-bold text-white mb-2 group-hover:text-[#D4AF37] transition-colors duration-500">
+                {/* This smart counter now waits for you! */}
                 <Counter to={item.value} suffix={item.suffix} />
               </h3>
               <p className="text-gray-400 uppercase tracking-[0.2em] text-sm font-medium">
@@ -71,7 +73,7 @@ export default function Experience() {
 
         {/* ROLES */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto">
-             {/* Role 1 */}
+            {/* Role 1 */}
             <div className="p-8 rounded-xl bg-white/5 border border-white/10 backdrop-blur-lg hover:border-[#D4AF37]/50 transition-all">
                 <h3 className="text-2xl font-bold text-white mb-2">Food Blogging</h3>
                 <p className="text-[#D4AF37] text-sm uppercase tracking-wider mb-4">Past Project</p>
@@ -80,7 +82,7 @@ export default function Experience() {
                 </p>
             </div>
 
-             {/* Role 2 */}
+            {/* Role 2 */}
             <div className="p-8 rounded-xl bg-white/5 border border-white/10 backdrop-blur-lg hover:border-[#D4AF37]/50 transition-all">
                 <h3 className="text-2xl font-bold text-white mb-2">Numerology Brand</h3>
                 <p className="text-[#D4AF37] text-sm uppercase tracking-wider mb-4">Current Role</p>
