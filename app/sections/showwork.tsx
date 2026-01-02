@@ -26,31 +26,34 @@ export default function ShowWork() {
     <section id="showwork" className="py-24 px-6 relative z-10">
       <div className="max-w-7xl mx-auto">
         
+        {/* --- HEADER SECTION --- */}
         <FadeIn>
           <div className="text-center mb-16">
             <h2 className="text-4xl md:text-6xl font-serif text-white mb-4">
               Selected <span className="text-[#D4AF37]">Works</span>
             </h2>
             <div className="h-1 w-24 bg-[#D4AF37] mx-auto mb-6" />
+            
+            {/* REMOVED THE SMALL LINK FROM HERE */}
             <p className="text-gray-400 text-lg">
-              Handpicked edits. <Link href="/works" className="text-white underline decoration-[#D4AF37] underline-offset-4 hover:text-[#D4AF37] transition">View all videos →</Link>
+              Handpicked edits.
             </p>
           </div>
         </FadeIn>
 
+        {/* --- VIDEO GRID SECTION --- */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 justify-center">
           {featuredVideos.map((item, index) => (
             <FadeIn key={index} delay={index * 0.2}>
               <div className="group relative w-full max-w-[320px] mx-auto aspect-[9/16] overflow-hidden rounded-2xl border border-white/10 bg-white/5 shadow-2xl hover:border-[#D4AF37]/50 transition-colors duration-500">
                 
-                {/* PURE VIDEO TAG (No Poster) */}
                 <video
                   src={item.src}
                   muted 
                   loop 
                   autoPlay 
                   playsInline 
-                  preload="auto" // Forces browser to load video data immediately
+                  preload="auto" 
                   className="absolute inset-0 w-full h-full object-cover opacity-90 group-hover:opacity-100 group-hover:scale-105 transition-all duration-700 ease-out"
                 />
                 
@@ -65,6 +68,18 @@ export default function ShowWork() {
             </FadeIn>
           ))}
         </div>
+
+        {/* --- NEW BUTTON SECTION (Kept this one) --- */}
+        <FadeIn delay={0.6}>
+            <div className="flex justify-center w-full mt-16">
+                <Link 
+                    href="/works" 
+                    className="px-10 py-4 bg-[#D4AF37] text-black font-bold text-lg rounded-full shadow-[0_0_20px_rgba(212,175,55,0.4)] hover:shadow-[0_0_30px_rgba(255,255,255,0.6)] hover:bg-white hover:scale-105 transition-all duration-300 transform"
+                >
+                    View All Projects
+                </Link>
+            </div>
+        </FadeIn>
 
       </div>
     </section>
