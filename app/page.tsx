@@ -238,7 +238,7 @@ export default function Home() {
               mulge10chetan@gmail.com →
             </a>
             <a
-              href="https://wa.me/917996591319"
+              href="https://wa.me/919980186225"
               style={{
                 display: "block",
                 padding: "16px 24px",
