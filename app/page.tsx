@@ -83,7 +83,7 @@ export default function Home() {
             {[
               { src: "/videos/travel/travel-1.mp4", title: "Travel Edit V1", tag: "Cinematic Vertical" },
               { src: "/videos/reels/work1.mp4",     title: "Viral Reel",     tag: "High Retention"    },
-              { src: "/videos/reels/work3.mp4",     title: "Brand Promo",    tag: "Commercial Style"  },
+              { src: "/videos/commercials/commercials3.mp4",     title: "Brand Promo",    tag: "Commercial Style"  },
             ].map((w) => (
               <div key={w.title} style={{ position: "relative", aspectRatio: "9/16", overflow: "hidden", background: "#111" }}>
                 <video
