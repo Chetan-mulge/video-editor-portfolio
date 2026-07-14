@@ -306,7 +306,7 @@ ro.observe(hero!)
     width: "100%",
     height: "100vh",
     minHeight: "100vh",
-    background: "red",
+    background: "transparent",
     zIndex: 99999,
   }}
 >
