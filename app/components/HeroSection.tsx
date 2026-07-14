@@ -299,22 +299,18 @@ ro.observe(hero!)
   }, []);
 
   return (
-  <section
-    style={{
-      width: "100%",
-      height: "100vh",
-      background: "red",
-      display: "flex",
-      alignItems: "center",
-      justifyContent: "center",
-      color: "white",
-      fontSize: "48px",
-      fontWeight: "bold",
-    }}
-  >
-    HERO WORKING
-  </section>
-);
+    <section
+  ref={heroRef}
+  style={{
+    position: "relative",
+    width: "100%",
+    height: "100vh",
+    minHeight: "100vh",
+    background: "red",
+    zIndex: 99999,
+  }}
+>
+    
       {/* Canvas layers */}
       <canvas
         ref={bgRef}
