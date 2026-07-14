@@ -3,7 +3,7 @@ import FadeIn from "../components/FadeIn";
 
 export default function Contact() {
   // 👇 YOUR WHATSAPP NUMBER
-  const whatsappNumber = "917996591319"; 
+  const whatsappNumber = "919980186225"; 
 
   return (
     <section id="contact" className="py-24 px-4 md:px-6 relative z-20 text-center overflow-hidden">

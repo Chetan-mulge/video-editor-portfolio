@@ -1,81 +1,180 @@
 @import "tailwindcss";
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+@layer base {
+  :root {
+    --background: #000000;
+    --foreground: #ffffff;
+  }
+
+  /* Replace the colorful liquid mesh with this subtle studio glow */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background: 
+    radial-gradient(circle at 50% -20%, rgba(255, 255, 255, 0.05) 0%, transparent 50%),
+    radial-gradient(circle at 50% 120%, rgba(255, 255, 255, 0.02) 0%, transparent 50%);
+  z-index: -2;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+  body {
+    background-color: var(--background);
+    color: var(--foreground);
+    font-family: var(--font-outfit);
+    overflow-x: hidden;
+    position: relative;
+    overscroll-behavior: none;
+  }
+
+  /* --- THE LIQUID MESH (Dynamic Studio Lighting) --- */
+  body::before {
+    content: "";
+    position: fixed;
+    inset: -50%;
+    z-index: -2;
+    background: 
+      radial-gradient(circle at 20% 30%, #221a44 0%, transparent 40%),
+      radial-gradient(circle at 80% 20%, #1a2c44 0%, transparent 40%),
+      radial-gradient(circle at 40% 80%, #3a1a44 0%, transparent 50%),
+      radial-gradient(circle at 70% 60%, #1a443a 0%, transparent 40%);
+    filter: blur(120px);
+    opacity: 0.7;
+    animation: liquid-drift 25s ease-in-out infinite alternate;
+  }
+
+  /* --- CINEMATIC GRAIN & OVERLAY (The Physical Texture) --- */
+  body::after {
+    content: "";
+    position: fixed;
+    inset: 0;
+    /* Combines a center vignette with moving film grain */
+    background: 
+      radial-gradient(circle at center, transparent 30%, rgba(0,0,0,0.8) 100%),
+      url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    z-index: -1;
+    pointer-events: none;
+    opacity: 0.05;
+    animation: grain-dance 8s steps(10) infinite;
+  }
+
+  h1 {
+    font-family: var(--font-bebas);
+    text-transform: uppercase;
+    letter-spacing: -0.02em;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
-  overflow-x: hidden; /* Prevents accidental horizontal scrolling */
+/* --- KINETIC TYPOGRAPHY (Visibility & Fire) --- */
+.outline-text {
+  -webkit-text-stroke: 1.5px rgba(255, 255, 255, 0.3);
+  color: transparent;
+  background: linear-gradient(180deg, rgba(255,255,255,0.1) 0%, transparent 100%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+  text-shadow: 0 0 10px rgba(255, 255, 255, 0.05);
+}
+
+.outline-text:hover {
+  -webkit-text-stroke: 1.5px rgba(255, 255, 255, 1);
+  filter: drop-shadow(0 0 25px rgba(255, 255, 255, 0.4));
+  letter-spacing: 0.05em;
+}
+
+.text-glitch:hover {
+  text-shadow: 0.05em 0 0 rgba(255, 0, 0, 0.8), -0.025em -0.05em 0 rgba(0, 255, 0, 0.8), 0.025em 0.05em 0 rgba(0, 0, 255, 0.8);
+  animation: glitch 400ms infinite;
 }
 
 /* --- ANIMATIONS --- */
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(10px);
+@keyframes liquid-drift {
+  0% { transform: rotate(0deg) scale(1); }
+  50% { transform: rotate(5deg) scale(1.1) translate(2%, 5%); }
+  100% { transform: rotate(-5deg) scale(1.05) translate(-2%, -5%); }
+}
+
+@keyframes grain-dance {
+  0%, 100% { transform: translate(0, 0); }
+  10% { transform: translate(-2%, -2%); }
+  50% { transform: translate(2%, 2%); }
+}
+
+@keyframes glitch {
+  0% { transform: translate(0); }
+  25% { transform: translate(-2px, 2px); }
+  75% { transform: translate(2px, -2px); }
+  100% { transform: translate(0); }
+}
+
+/* --- MARQUEE --- */
+.marquee {
+  display: flex;
+  overflow: hidden;
+  user-select: none;
+  mask-image: linear-gradient(to right, transparent, black 15%, black 85%, transparent);
+}
+
+.marquee-content {
+  flex-shrink: 0;
+  display: flex;
+  justify-content: space-around;
+  gap: 4rem;
+  min-width: 100%;
+  animation: scroll 40s linear infinite;
+}
+
+@keyframes scroll {
+  from { transform: translateX(0); }
+  to { transform: translateX(-100%); }
+}
+
+/* --- MOBILE OPTIMIZATION --- */
+@media (max-width: 768px) {
+  video { filter: none !important; }
+  .outline-text { 
+    -webkit-text-stroke: 1px rgba(255, 255, 255, 0.5); 
+    background: none;
   }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+  h1 { font-size: 20vw !important; }
+  body::before { opacity: 0.5; filter: blur(80px); }
 }
 
-.animate-fadeIn {
-  animation: fadeIn 0.8s ease-out forwards;
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
-@keyframes blink {
-  0%, 50%, 100% { opacity: 1; }
-  25%, 75% { opacity: 0; }
-}
-
-.animate-blink {
-  animation: blink 1s steps(1) infinite;
-}
-
-/* --- INTERACTIVE HOVER EFFECTS (Updated to GOLD) --- */
-.interactive {
-  transition: transform 0.25s ease, box-shadow 0.25s ease;
-}
-
-.interactive:hover {
-  transform: translateY(-3px) scale(1.03);
-  /* Gold Glow instead of Purple */
-  box-shadow: 0 10px 30px rgba(212, 175, 55, 0.35); 
-}
-
-/* --- CINEMATIC GRAIN (No Image File Needed) --- */
-.grain::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  /* SVG Noise - Works without external files */
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
-  z-index: 1;
-  mix-blend-mode: overlay;
-}
-
-/* --- SYSTEM CURSOR FIX --- */
-/* Forces the arrow to always be visible as you requested */
-html, body, a, button {
-  cursor: auto !important;
-}
-
-/* Smooth Scrolling for anchor links */
 html {
   scroll-behavior: smooth;
+}
+
+body {
+  background: #07060a;
+  color: #ffffff;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+
+/* Hide default scrollbar on hero hover area */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #07060a;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 3px;
+}
+
+/* Selection color */
+::selection {
+  background: rgba(255, 110, 60, 0.25);
+  color: #fff;
+}
+
+a {
+  color: inherit;
 }

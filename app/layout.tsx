@@ -1,24 +1,24 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Bebas_Neue, Outfit } from "next/font/google"; // Swapped to sexy fonts
 import "./globals.css";
 import Cursor from "./components/cursor";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
+const bebas = Bebas_Neue({ 
+  weight: "400", 
+  subsets: ["latin"], 
+  variable: "--font-bebas" 
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
+const outfit = Outfit({ 
+  subsets: ["latin"], 
+  variable: "--font-outfit" 
 });
 
 export const metadata: Metadata = {
   title: "Chetan Mulge | Video Editor",
   description: "Chetan Mulge – Video Editor & Motion Designer. Portfolio showcasing cinematic edits, reels, and creative storytelling.",
-  // 👇 THIS IS THE GOOGLE VERIFICATION CODE
   verification: {
-    google: "aig4CVUIKaBTY_ssHkWScJyeQ0HhOfcgfRAZIX8SIco",
+    google: "aig4CVUIKaBTY_ssHkWScJyeQ0HhOfcgfRAZIX8SIco", // Kept your code
   },
 };
 
@@ -28,11 +28,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
-        {/* 👇 I added this back so your mouse effect works */}
+    <html lang="en" className={`${bebas.variable} ${outfit.variable} dark`}>
+      <body className="antialiased font-outfit bg-black text-white">
         <Cursor />
         {children}
       </body>
