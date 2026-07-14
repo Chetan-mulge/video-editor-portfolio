@@ -120,25 +120,32 @@ export default function HeroSection() {
       addWord(LINE2, centerY + sz * 0.55, (W - w2) / 2);
     }
 
-    // ── RESIZE ─────────────────────────────────────────────────────────────────
-    function resize() {
-      const r = hero.getBoundingClientRect();
-      W = r.width;
-      H = r.height;
-      [bgC, nmC, ptC].forEach((c) => {
-        c.width = W;
-        c.height = H;
-      });
-      mouseRef.current.x  = W / 2;
-      mouseRef.current.y  = H / 2;
-      mouseRef.current.sx = W / 2;
-      mouseRef.current.sy = H / 2;
-      buildChars();
-      buildParticles();
-    }
-    resize();
-    const ro = new ResizeObserver(resize);
-    ro.observe(hero);
+   // ── RESIZE ─────────────────────────────────────────────────────────────────
+if (!hero) return;
+
+function resize() {
+  const r = hero.getBoundingClientRect();
+  W = r.width;
+  H = r.height;
+
+  [bgC, nmC, ptC].forEach((c) => {
+    c.width = W;
+    c.height = H;
+  });
+
+  mouseRef.current.x = W / 2;
+  mouseRef.current.y = H / 2;
+  mouseRef.current.sx = W / 2;
+  mouseRef.current.sy = H / 2;
+
+  buildChars();
+  buildParticles();
+}
+
+resize();
+
+const ro = new ResizeObserver(resize);
+ro.observe(hero);
 
     // ── MOUSE ──────────────────────────────────────────────────────────────────
     const onMove = (e: MouseEvent) => {
